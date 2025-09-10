@@ -1,0 +1,122 @@
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css");
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+h2 {
+    color: #333;
+}
+
+form {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 30px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+input[type="text"],
+input[type="email"] {
+    width: 90%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+button[type="submit"] {
+    background-color: #007BFF;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+button[type="submit"]:hover {
+    background-color: #0056b3;
+    transition: 0.2s;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+th,
+td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+th {
+    background-color: #007BFF;
+    color: white;
+}
+
+.search-container {
+    display: flex;
+    align-items: stretch;
+    /* Isso faz o botão ficar exatamente da altura do input */
+    margin-bottom: 20px;
+    width: 100%;
+    max-width: 500px;
+}
+
+.search-input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-right: none;
+    /* Para não duplicar a borda com o botão */
+    border-radius: 4px 0 0 4px;
+    font-size: 16px;
+    height: 42px;
+    /* Garante altura igual ao botão */
+    box-sizing: border-box;
+}
+
+.search-button {
+    padding: 0 20px;
+    background-color: #007BFF;
+    color: white;
+    border: 1px solid #007BFF;
+    border-radius: 0 4px 4px 0;
+    cursor: pointer;
+    transition: 0.2s;
+    font-size: 16px;
+    height: 42px;
+    /* Mesma altura do input */
+    box-sizing: border-box;
+}
+
+.search-button:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+}
+
+.lixeira{
+    color: red;
+}
+
+.espaco_lixeira{
+    text-align: center;
+}
