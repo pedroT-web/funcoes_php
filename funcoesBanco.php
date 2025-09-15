@@ -14,7 +14,7 @@ function conexaoBanco(): PDO
 
 
 
-// // Crie uma função que receba nome e email e insira na tabela usuarios.
+// Crie uma função que receba nome e email e insira na tabela usuarios.
 function inserirDados($nome, $email)
 {
     $conn = conexaoBanco();
@@ -36,33 +36,55 @@ if (isset($_POST['input_nome']) && isset($_POST['input_email'])) {
 }
 
 
-// Crie uma função que recebe o nome de uma tabela e retorne todos os dados 
-// dela
-function selectDados()
+// Crie uma função que recebe o nome de uma tabela e retorne todos os dados dela
+function selectDados($nomeTabela = "tb_usuarios")
 {
     $conn = conexaoBanco();
-    $select = "SELECT * FROM tb_usuarios";
+
+    $nomeTabela = "tb_usuarios";
+    $select = "SELECT * FROM $nomeTabela";
     $script = $conn->query($select)->fetchAll();
 
     return $script;
 }
 
+
 $resultadoSelect = selectDados();
 
-function deletarDados()
+function deletarDados($nomeTabela = "tb_usuarios")
 {
     $conn = conexaoBanco();
 
-    $id = $_GET['id'];
-    $delete = "DELETE FROM tb_usuarios WHERE id = :id";
-    $deletePrepare = $conn->prepare($delete)->execute([
-        ':id' => $id
-    ]);
+    if (isset($_GET['id']) && !empty($_GET['id'])) {
+        $id = $_GET['id'];
+        $delete = "DELETE FROM $nomeTabela WHERE id = :id";
+        $deletePrepare = $conn->prepare($delete)->execute([
+            ':id' => $id
+        ]);
 
-    // header("location:./funcaoBanco.php");
+        header("location: funcoesBanco.php");
+    }
 }
 
 $resultadoDelete = deletarDados();
+
+function searchDados($tabela = "tb_usuarios")
+{
+    if (isset($_POST['input_pesquisa']) && !empty($_POST['input_pesquisa'])) {
+        $conn = conexaoBanco();
+        $tabela = "tb_usuarios";
+
+        $id = $_POST['input_pesquisa'];
+        $select = "SELECT * FROM $tabela WHERE id = $id";
+        $preparar = $conn->query($select)->fetch();
+        return $preparar;
+    }else if(!isset($_POST['input_pesquisa'])){
+        return "Id Invalido";
+    }
+}
+
+$resultadoSearch = searchDados();
+
 ?>
 
 <!DOCTYPE html>
@@ -74,6 +96,7 @@ $resultadoDelete = deletarDados();
     <title>Cadastro de Usuários</title>
 
     <link rel="stylesheet" href="./css/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
 </head>
 
 <body>
@@ -94,11 +117,18 @@ $resultadoDelete = deletarDados();
 
     <!-- Tabela de exibição de usuários -->
     <h2>Usuários Cadastrados</h2>
-    <div>
-        <input type="text" name="input_pesquisa" placeholder="Pesquisar usuário..." class="search-input">
+    <form method="POST" action="funcoesBanco.php">
+        <input id="input_pesquisa" name="input_pesquisa" placeholder="Pesquisar usuário..." class="search-input">
         <button type="submit" class="search-button">Pesquisar</button>
+    </form>
+    <div class="container_search">
+        <form>
+            <div class="card text-bg-dark mb-3" style="max-width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title"><?php var_dump($resultadoSearch) ?></h5>
+                </div>
+        </form>
     </div>
-    <form method="GET" action="funcoesBanco.php" class="search-container">
         <table>
             <thead>
                 <tr>
